@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.AllProductsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtNoResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="No Result"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:visibility="invisible"/>
+
+            <ProgressBar
+                android:id="@+id/allProductsProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:indeterminate="true"
+                android:layout_centerVertical="true"
+                />
+
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/allProductsRecyclerView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:scrollbars="vertical"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

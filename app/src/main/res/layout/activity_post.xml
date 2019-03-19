@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.PostActivity">
+
+
+    <include
+        android:id="@+id/update_post_page_toolbar"
+        layout="@layout/app_bar_layout"/>
+
+    <ImageButton
+        android:id="@+id/select_post_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/update_post_page_toolbar"
+        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/select_image"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="211dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:padding="10dp"
+        android:text="Choose Category"
+        android:textSize="20dp"/>
+
+    <com.example.android.shoppingpool.activities.MultiSelectSpinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="160dp"
+        android:padding="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"/>
+
+    <EditText
+        android:id="@+id/post_description"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="95dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginRight="20dp"
+        android:ems="10"
+        android:padding="10dp"
+        android:inputType="textMultiLine"
+        android:hint="Write something about POST"/>
+
+    <Button
+        android:id="@+id/update_post_button"
+        style="?android:textAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="@color/orangecolor"
+        android:text="Post"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+</RelativeLayout>

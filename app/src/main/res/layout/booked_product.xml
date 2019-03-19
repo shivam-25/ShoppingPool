@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dp"
+    card_view:contentPadding="2dp">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/bookedShopIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:src="@mipmap/shop_icon"
+            android:scaleType="centerCrop"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="shop name here"
+            android:id="@+id/bookedShopName"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@id/bookedShopIcon"
+            android:textSize="16sp"/>
+
+        <RelativeLayout
+            android:layout_below="@id/bookedShopName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+
+
+
+            <ImageView
+                android:id="@+id/bookedProductImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@+id/line_below_productShopName"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cart_icon" />
+
+
+            <TextView
+                android:id="@+id/bookingProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/bookedProductImage"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/bookedProductImage"
+                android:layout_toRightOf="@+id/bookedProductImage"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="Title"
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/bookingProductVariantHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bookingProductName"
+                android:layout_marginLeft="5dp"
+                android:layout_toEndOf="@id/bookedProductImage"
+                android:paddingBottom="5dp"
+                android:text="Item Variant: "
+                android:textColor="@color/darkTransparentBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/bookingProductVariant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bookingProductName"
+                android:layout_marginLeft="3dp"
+                android:layout_toEndOf="@+id/bookingProductVariantHeading"
+                android:text="S"
+
+                android:textColor="@color/colorAccent">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/bookingAmountHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bookingProductVariant"
+                android:layout_marginLeft="5dp"
+                android:layout_toEndOf="@id/bookedProductImage"
+                android:paddingBottom="5dp"
+                android:text="Amount to be Paid: "
+                android:textColor="@color/darkTransparentBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/bookingAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bookingProductVariant"
+                android:layout_marginLeft="3dp"
+                android:layout_toEndOf="@+id/bookingAmountHeading"
+                android:text="1000"
+                android:textColor="@color/colorAccent">
+
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/bookingDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bookingAmountHeading"
+                android:layout_marginLeft="3dp"
+                android:layout_toEndOf="@+id/bookedProductImage"
+                android:text="Date of Booking: "
+                android:textColor="@color/darkTransparentBlack" />
+
+            <TextView
+                android:id="@+id/bookingDateValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bookingAmountHeading"
+                android:layout_marginLeft="3dp"
+                android:layout_toEndOf="@+id/bookingDate"
+                android:text="28-Feb-2018"
+                android:textColor="@color/colorAccent">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/bookingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bookingDate"
+                android:layout_marginLeft="3dp"
+                android:layout_toEndOf="@+id/bookedProductImage"
+                android:text="Time of Booking: "
+                android:textColor="@color/darkTransparentBlack" />
+
+            <TextView
+                android:id="@+id/bookingTimeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bookingDate"
+                android:layout_marginLeft="3dp"
+                android:layout_toEndOf="@+id/bookingTime"
+                android:text="00:00"
+                android:textColor="@color/colorAccent">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/bookingDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bookingTime"
+                android:layout_marginLeft="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_toEndOf="@+id/bookedProductImage"
+                android:text="Distance: "
+                android:textColor="@color/darkTransparentBlack" />
+
+            <TextView
+                android:id="@+id/bookingDistanceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bookingTimeValue"
+                android:layout_marginLeft="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_toEndOf="@+id/bookingDistance"
+                android:text="200 mt"
+                android:textColor="@color/colorAccent">
+
+            </TextView>
+
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/bookedProductImage"
+                android:layout_below="@id/bookingDistance"
+                android:layout_marginTop="129dp"
+                android:background="@drawable/my_button_bg2"
+                android:backgroundTint="@color/red"
+                android:text="Delete"
+                android:textColor="@color/White" />
+
+            <Button
+                android:id="@+id/buttonDirections"
+                android:layout_width="247dp"
+                android:layout_height="32dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@id/bookingDate"
+                android:layout_below="@id/bookingDateValue"
+                android:layout_marginTop="129dp"
+                android:layout_toEndOf="@id/buttonDelete"
+                android:background="@drawable/my_button_bg2"
+                android:backgroundTint="@color/cashierbookBlue"
+                android:text="Get Directions"
+                android:textColor="@color/White" />
+
+
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

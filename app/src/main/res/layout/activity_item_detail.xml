@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ItemDetailActivity">
+
+    <include
+        android:id="@+id/main_page_toolbar"
+        layout="@layout/app_bar_layout">
+    </include>
+
+
+        <LinearLayout
+            android:id="@+id/detailActivityImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/main_page_toolbar">
+
+            <ImageView
+                android:layout_marginLeft="13dp"
+                android:id="@+id/coverphoto"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/photo" />
+
+        </LinearLayout>
+
+    <TextView
+        android:id="@+id/detailActivityProductName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/darkTransparentBlack"
+        android:text="Shops selling this Product"
+        android:textStyle="bold"
+        android:layout_margin="5dp"
+        android:textAlignment="center"
+        android:textSize="15sp"
+        android:layout_below="@id/detailActivityImage"/>
+
+
+    <RelativeLayout
+        android:id="@+id/itemDetailShop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/detailActivityProductName">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/detailActivityRecyclerView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:scrollbars="vertical"
+            android:layout_above="@+id/addForAnalysis">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <ProgressBar
+            android:id="@+id/detailProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:indeterminate="true"
+            android:layout_centerVertical="true"
+            />
+
+        <Button
+            android:id="@+id/addForAnalysis"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:backgroundTint="@color/scarletRed"
+            android:text="Add this Product For Analysis" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ClickPostActivity">
+
+    <ImageView
+        android:id="@+id/click_post_image"
+        android:layout_width="wrap_content"
+        android:layout_height="350dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        app:srcCompat="@drawable/select_image"
+        />
+
+    <TextView
+        android:id="@+id/click_post_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/click_post_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="0dp"
+        android:padding="10dp"
+        android:text="Post Description..."
+        android:textAlignment="textStart"
+        android:textSize="16dp"/>
+
+    <Button
+        android:id="@+id/edit_post_button"
+        style="?android:textAppearanceSmall"
+        android:layout_width="126dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="78dp"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="@color/orangecolor"
+        android:text="Edit Post"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/delete_post_button"
+        style="?android:textAppearanceSmall"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="@color/orangecolor"
+        android:text="Delete Post"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+
+    
+</RelativeLayout>

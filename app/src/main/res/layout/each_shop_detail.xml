@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dp"
+    card_view:contentPadding="2dp"
+    >
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/detailRelative1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/detailProductShopIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/shop_icon" />
+
+
+
+        <TextView
+            android:id="@+id/detailProductShopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/detailProductShopIcon"
+            android:text="shop name here"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/detailRelative8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/detailProductShopIcon"
+            android:layout_below="@+id/detailProductShopName">
+
+        <TextView
+            android:id="@+id/detailColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+
+
+            android:text="Color Available: "
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/detailColorValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/detailColor"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/detailColor"
+            android:text="Not Applicable"
+            android:textColor="@color/darkTransparentBlack"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detailColor"
+            android:layout_marginTop="5dp"
+            android:text="Gender: "
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/detailGenderValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/detailGender"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/detailGender"
+            android:text="Female"
+            android:textColor="@color/darkTransparentBlack"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailEdition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detailGender"
+
+            android:layout_marginTop="5dp"
+            android:text="Edition: "
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/detailEditionValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/detailEdition"
+            android:layout_marginRight="5dp"
+            android:layout_toEndOf="@+id/detailEdition"
+            android:text="Paperback"
+            android:textColor="@color/darkTransparentBlack"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/detailWater"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detailEdition"
+
+            android:layout_marginTop="5dp"
+            android:text="Water Resistant: "
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/detailWaterValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/detailWater"
+            android:layout_marginRight="5dp"
+            android:layout_toEndOf="@+id/detailWater"
+            android:text="Yes"
+            android:textColor="@color/darkTransparentBlack"
+            android:textStyle="normal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/detailRelative2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/detailRelative8"
+            android:layout_below="@id/detailRelative8"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/detailCostHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="54dp"
+                android:text="Cost: "
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/detailStockHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="121dp"
+                android:text="In Stock: "
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/detailVariantHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="Variants: "
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/variantDetails1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailVariantHeading"
+                android:layout_marginTop="3dp">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/detailVariant1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimary"
+                    card_view:cardCornerRadius="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:contentPadding="2dp">
+
+                    <TextView
+                        android:id="@+id/detailVar1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:text="S"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/detailStock1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="122dp"
+                    android:text="Stock"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailCost1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="61dp"
+                    android:text="Cost"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/variantDetails2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/variantDetails1"
+                android:layout_marginTop="3dp">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/detailVariant2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimary"
+                    card_view:cardCornerRadius="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:contentPadding="2dp">
+
+                    <TextView
+                        android:id="@+id/detailVar2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:text="S"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/detailStock2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="122dp"
+                    android:text="Stock"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailCost2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="61dp"
+                    android:text="Cost"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/variantDetails3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/variantDetails2"
+                android:layout_marginTop="3dp">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/detailVariant3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimary"
+                    card_view:cardCornerRadius="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:contentPadding="2dp">
+
+                    <TextView
+                        android:id="@+id/detailVar3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:text="S"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/detailStock3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="122dp"
+                    android:text="Stock"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailCost3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="61dp"
+                    android:text="Cost"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/variantDetails4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/variantDetails3"
+                android:layout_marginTop="3dp">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/detailVariant4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimary"
+                    card_view:cardCornerRadius="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:contentPadding="2dp">
+
+                    <TextView
+                        android:id="@+id/detailVar4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:text="S"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/detailStock4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="122dp"
+                    android:text="Stock"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailCost4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="61dp"
+                    android:text="Cost"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/variantDetails5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/variantDetails4"
+                android:layout_marginTop="3dp">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/detailVariant5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimary"
+                    card_view:cardCornerRadius="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:contentPadding="2dp">
+
+                    <TextView
+                        android:id="@+id/detailVar5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:text="S"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/detailStock5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="122dp"
+                    android:text="Stock"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailCost5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="61dp"
+                    android:text="Cost"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/variantDetails6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/variantDetails5"
+                android:layout_marginTop="3dp">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/detailVariant6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimary"
+                    card_view:cardCornerRadius="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:contentPadding="2dp">
+
+                    <TextView
+                        android:id="@+id/detailVar6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:text="S"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/detailStock6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="122dp"
+                    android:text="Stock"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailCost6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="61dp"
+                    android:text="Cost"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/variantDetails7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/variantDetails6"
+                android:layout_marginTop="3dp">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/detailVariant7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimary"
+                    card_view:cardCornerRadius="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:contentPadding="2dp">
+
+                    <TextView
+                        android:id="@+id/detailVar7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:text="S"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/detailStock7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="122dp"
+                    android:text="Stock"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailCost7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="61dp"
+                    android:text="Cost"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/detailRelative3"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detailRelative2"
+            android:layout_alignStart="@id/detailRelative2">
+
+            <TextView
+                android:id="@+id/detailDiscountHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discount: "
+                android:textSize="17dp"
+                android:textColor="@color/darkTransparentBlack"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_toEndOf="@+id/detailDiscountHeading"
+                android:id="@+id/detailDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-xxx% off"
+                android:textColor="@color/White"
+                android:background="@drawable/red_circle"
+                android:padding="2dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/detailRelative4"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detailRelative3"
+            android:layout_alignStart="@id/detailRelative2">
+
+            <TextView
+                android:id="@+id/detailOfferHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Offer: "
+                android:textSize="17dp"
+                android:textColor="@color/darkTransparentBlack"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_toEndOf="@+id/detailOfferHeading"
+                android:id="@+id/detailOffer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-xxx% off"
+                android:textColor="@color/White"
+                android:background="@drawable/red_circle"
+                android:padding="2dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/detailRelative5"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detailRelative4"
+            android:layout_alignStart="@id/detailRelative2">
+
+            <TextView
+                android:id="@+id/distanceHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distance: "
+                android:textSize="17dp"
+                android:textColor="@color/darkTransparentBlack"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_toEndOf="@+id/distanceHeading"
+                android:id="@+id/detailDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="200 mt"
+                android:textColor="@color/darkTransparentBlack"
+                android:padding="2dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linearButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detailRelative5"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/shopButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/White"
+                android:src="@mipmap/shop_icon"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/addToCartButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+
+                android:backgroundTint="@color/orange"
+                android:text="@string/addtocart" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,182 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dp"
+    card_view:contentPadding="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/jobShop"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="5dp"
+            android:src="@mipmap/shop_icon"
+            android:scaleType="centerCrop"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="shop name here"
+            android:id="@+id/jobShopName"
+            android:layout_marginLeft="3dp"
+            android:layout_toEndOf="@+id/jobShop"
+            android:layout_toRightOf="@id/bookedShopIcon"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/darkTransparentBlack"/>
+
+        <TextView
+            android:id="@+id/job_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/jobShop"
+            android:layout_marginStart="15dp"
+            android:paddingBottom="5dp"
+            android:text="Date Job Posted: "
+            android:textColor="@color/darkTransparentBlack"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/jobDateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_below="@+id/jobShop"
+            android:textColor="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/job_date"
+            android:text="Date" />
+
+        <TextView
+            android:id="@+id/job_experience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_below="@+id/job_date"
+            android:paddingBottom="5dp"
+            android:text="Experience Required: "
+            android:textColor="@color/darkTransparentBlack"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/jobExperienceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/job_experience"
+            android:layout_below="@+id/job_date"
+            android:text="2 years" />
+
+        <TextView
+            android:id="@+id/job_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_below="@+id/job_experience"
+            android:paddingBottom="5dp"
+            android:text="Post: "
+            android:textColor="@color/darkTransparentBlack"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/jobPostValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/job_post"
+            android:layout_below="@+id/job_experience"
+            android:text="Manager" />
+
+        <TextView
+            android:id="@+id/job_vacancy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_below="@+id/job_post"
+            android:paddingBottom="5dp"
+            android:text="Vacancies: "
+            android:textColor="@color/darkTransparentBlack"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/jobVacancyValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/job_vacancy"
+            android:layout_below="@+id/job_post"
+            android:text="5" />
+
+        <TextView
+            android:id="@+id/job_salary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_below="@+id/job_vacancy"
+            android:paddingBottom="5dp"
+            android:text="Salary Offered: "
+            android:textColor="@color/darkTransparentBlack"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/jobSalaryValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@+id/job_salary"
+            android:layout_below="@+id/job_vacancy"
+            android:text="5000" />
+
+
+        <Button
+            android:id="@+id/buttonDirectionsToShop"
+            android:layout_width="wrap_content"
+            android:layout_height="31dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignStart="@id/job_salary"
+            android:layout_below="@id/job_salary"
+            android:background="@drawable/my_button_bg2"
+            android:backgroundTint="@color/colorPrimary"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Job Location"
+            android:textColor="@color/White" />
+
+        <Button
+            android:id="@+id/jobApplyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="31dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/job_salary"
+            android:background="@drawable/my_button_bg2"
+            android:backgroundTint="@color/colorPrimary"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Apply"
+            android:textColor="@color/White" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
