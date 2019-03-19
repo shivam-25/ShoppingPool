@@ -249,7 +249,7 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/category_electronic_accessories_1"
                         android:layout_centerHorizontal="true"
-                        android:src="@mipmap/ic_electronic_acc"
+                        android:src="@mipmap/ic_appliance"
                         android:tint="@color/colorPrimaryDark" />
 
                     <TextView
@@ -258,7 +258,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
-                        android:text="Electronic Accessories"
+                        android:text="Electronics"
                         android:textAlignment="center" />
                 </RelativeLayout>
 
@@ -359,7 +359,7 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/category_home_appliance_1"
                         android:layout_centerHorizontal="true"
-                        android:src="@mipmap/ic_appliance"
+                        android:src="@mipmap/ic_electronic_acc"
                         android:tint="@color/colorPrimaryDark" />
 
                     <TextView
