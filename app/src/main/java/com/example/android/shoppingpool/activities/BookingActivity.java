@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,7 +79,7 @@ public class BookingActivity extends AppCompatActivity {
         sentQuantity = k.nextToken().trim();
         sentPrice = k.nextToken().trim();
         newQuantityList="";
-
+        RelativeLayout loanFullerton = findViewById(R.id.loanButton);
         SharedPreferences sp = getSharedPreferences("LOGGED_USER", Context.MODE_PRIVATE);
         String user = sp.getString("current_user", null);
 
@@ -771,7 +772,13 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
 
-
+        loanFullerton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(BookingActivity.this, LoanActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void SendUserToMainActivity() {

@@ -320,4 +320,43 @@
             android:backgroundTint="@color/scarletRed"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:id="@+id/applyForLoan"
+        android:layout_below="@+id/checkoutLinear"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:maxHeight="50dp"
+        android:maxWidth="50dp">
+
+        <RelativeLayout
+            android:id="@+id/loanButton"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/loanText"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/fullerton_india_logo" />
+
+            <TextView
+                android:id="@+id/loanText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="Proceed To Loan Application"
+                android:textSize="15dp"
+                android:textColor="@color/darkTransparentBlack"
+                android:textAlignment="center" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>

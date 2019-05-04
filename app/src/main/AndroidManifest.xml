@@ -70,9 +70,13 @@
 
         <activity android:name=".activities.ClickPostActivity" />
         <activity android:name=".activities.CommentsActivity" />
-        <activity android:name=".activities.FindActivity" />
-        <activity android:name=".activities.ItemDetailActivity" />
-        <activity android:name=".activities.BookingActivity"></activity>
+        <activity android:name=".activities.FindActivity"
+            android:parentActivityName=".activities.MainActivity"/>
+        <activity android:name=".activities.ItemDetailActivity"
+            android:parentActivityName=".activities.FindActivity"/>
+        <activity android:name=".activities.BookingActivity" />
+        <activity android:name=".activities.LoanActivity"
+            android:parentActivityName=".activities.BookingActivity"></activity>
     </application>
 
 </manifest>

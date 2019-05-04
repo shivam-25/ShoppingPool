@@ -214,31 +214,38 @@ public class CartFragment extends Fragment {
                 final String lat = loc.optString("latitude").trim();
                 final String lng = loc.optString("longitude").trim();
 
-                String latShop = map1.get(model.getSoldBy()).trim();
-                String lngShop = map2.get(model.getSoldBy()).trim();
+                try {
+                    String latShop = map1.get(model.getSoldBy()).trim();
+                    String lngShop = map2.get(model.getSoldBy()).trim();
 
-                double deltaLat = Math.toRadians(Double.valueOf(lat) - Double.valueOf(latShop));
-                double deltaLong = Math.toRadians(Double.valueOf(lng) - Double.valueOf(lngShop));
+                    double deltaLat = Math.toRadians(Double.valueOf(lat) - Double.valueOf(latShop));
+                    double deltaLong = Math.toRadians(Double.valueOf(lng) - Double.valueOf(lngShop));
 
-                double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) + Math.cos(Double.valueOf(lat)) * Math.cos(Double.valueOf(latShop)) * Math.sin(deltaLong / 2) * Math.sin(deltaLong / 2);
-                double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                final double distance = RADIUS_OF_EARTH * c;
-                String mode="d";
-                if((int)distance < 1000)
-                    mode = "w";
+                    double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) + Math.cos(Double.valueOf(lat)) * Math.cos(Double.valueOf(latShop)) * Math.sin(deltaLong / 2) * Math.sin(deltaLong / 2);
+                    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                    final double distance = RADIUS_OF_EARTH * c;
+                    String mode = "d";
+                    if ((int) distance < 1000)
+                        mode = "w";
 
-                final String uri = "google.navigation:q="+latShop+","+lngShop+"&mode="+mode;
+                    final String uri = "google.navigation:q=" + latShop + "," + lngShop + "&mode=" + mode;
 
-                holder.DirectionsButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                    holder.DirectionsButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                        Uri gmmIntentUri = Uri.parse(uri);
-                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                        mapIntent.setPackage("com.google.android.apps.maps");
-                        startActivity(mapIntent);
-                    }
-                });
+                            Uri gmmIntentUri = Uri.parse(uri);
+                            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                            mapIntent.setPackage("com.google.android.apps.maps");
+                            startActivity(mapIntent);
+                        }
+                    });
+
+                }
+                catch (Exception e)
+                {
+                    JSON_HTTP_CALL3();
+                }
 
                 final DatabaseReference delRefUsers = FirebaseDatabase.getInstance().getReference().child("Booked_Products").child(currentUserID);
                 final DatabaseReference delShopUse = FirebaseDatabase.getInstance().getReference().child("Booking").child(model.getSoldBy()).child(model.getCategory()).child(currentUserID);
@@ -449,35 +456,41 @@ public class CartFragment extends Fragment {
         public void setDistance(String soldBy)
         {
             TextView distanceView = (TextView) mView.findViewById(R.id.bookingDistanceValue);
+            boolean lp=true;
 
-            if(map1!=null && map2!=null) {
-                String latShop = map1.get(soldBy).trim();
-                String lngShop = map2.get(soldBy).trim();
+                if (map1 != null && map2 != null) {
+                    String latShop, lngShop;
 
+                    try{
+                        latShop = map1.get(soldBy).trim();
+                        lngShop = map2.get(soldBy).trim();
+                        String user = sp.getString("current_user", null);
+                        JSONObject s;
+                        try {
+                            s = new JSONObject(user);
+                        } catch (Exception e) {
+                            s = null;
+                        }
+                        JSONObject loc = s.optJSONObject("location");
+                        final String lat = loc.optString("latitude").trim();
+                        final String lng = loc.optString("longitude").trim();
 
-                String user = sp.getString("current_user", null);
-                JSONObject s;
-                try {
-                    s = new JSONObject(user);
-                } catch (Exception e) {
-                    s = null;
+                        double deltaLat = Math.toRadians(Double.valueOf(lat) - Double.valueOf(latShop));
+                        double deltaLong = Math.toRadians(Double.valueOf(lng) - Double.valueOf(lngShop));
+
+                        double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) + Math.cos(Double.valueOf(lat)) * Math.cos(Double.valueOf(latShop)) * Math.sin(deltaLong / 2) * Math.sin(deltaLong / 2);
+                        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                        final double distance = RADIUS_OF_EARTH * c;
+                        distanceView.setText(("" + ((int) distance) + " meters away"));
+                    }
+                    catch (Exception e) {
+                        JSON_HTTP_CALL3();
+                    }
+
+                } else {
+                    JSON_HTTP_CALL3();
                 }
-                JSONObject loc = s.optJSONObject("location");
-                final String lat = loc.optString("latitude").trim();
-                final String lng = loc.optString("longitude").trim();
 
-                double deltaLat = Math.toRadians(Double.valueOf(lat) - Double.valueOf(latShop));
-                double deltaLong = Math.toRadians(Double.valueOf(lng) - Double.valueOf(lngShop));
-
-                double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) + Math.cos(Double.valueOf(lat)) * Math.cos(Double.valueOf(latShop)) * Math.sin(deltaLong / 2) * Math.sin(deltaLong / 2);
-                double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                final double distance = RADIUS_OF_EARTH * c;
-                distanceView.setText(("" + ((int) distance) + " meters away"));
-            }
-            else
-            {
-                JSON_HTTP_CALL3();
-            }
         }
 
 
