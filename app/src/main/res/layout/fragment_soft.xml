@@ -5,169 +5,425 @@
     android:layout_height="match_parent"
     tools:context=".fragments.SoftFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Your Budget:"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Rs. 15,000 /-"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Amount Spent:"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Rs. 7,345 /-"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Budget Amount left:"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Rs. 7,655 /-"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed"
-            />
-
-    </LinearLayout>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:text="Change Budget amount"
-        android:textColor="@color/White"
-        android:background="#ff8c00"
-        />
-
-    </LinearLayout>
-
-
-
-    <!--<RelativeLayout-->
-    <!--android:layout_marginTop="65dp"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_marginBottom="60dp">-->
+    <!--<LinearLayout-->
+        <!--android:layout_marginTop="60dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
 
     <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="@color/White"-->
-    <!--android:baselineAligned="false"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:padding="5dp"-->
-    <!--android:paddingLeft="10dp"-->
-    <!--android:paddingRight="10dp">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:layout_marginBottom="5dp">-->
 
-    <!--<RelativeLayout-->
-    <!--android:id="@+id/category_men_fashion"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="100dp"-->
-    <!--android:layout_weight="1">-->
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0.5"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:text="Your Budget:"-->
+            <!--android:textSize="20dp"-->
+            <!--android:fontFamily="sans-serif-condensed"-->
+            <!--/>-->
 
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_above="@+id/budgetButton"-->
-    <!--android:layout_marginLeft="5dp"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0.5"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:text="Rs. 15,000 /-"-->
+            <!--android:textSize="20dp"-->
+            <!--android:fontFamily="sans-serif-condensed"-->
+            <!--/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:layout_marginBottom="5dp">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0.5"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:text="Amount Spent:"-->
+            <!--android:textSize="20dp"-->
+            <!--android:fontFamily="sans-serif-condensed"-->
+            <!--/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0.5"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:text="Rs. 7,345 /-"-->
+            <!--android:textSize="20dp"-->
+            <!--android:fontFamily="sans-serif-condensed"-->
+            <!--/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:layout_marginBottom="5dp">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0.5"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:text="Budget Amount left:"-->
+            <!--android:textSize="20dp"-->
+            <!--android:fontFamily="sans-serif-condensed"-->
+            <!--/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="0.5"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:text="Rs. 7,655 /-"-->
+            <!--android:textSize="20dp"-->
+            <!--android:fontFamily="sans-serif-condensed"-->
+            <!--/>-->
+
+    <!--</LinearLayout>-->
 
     <!--<Button-->
-    <!--android:id="@+id/budgetButton"-->
-    <!--android:layout_marginRight="5dp"-->
-    <!--android:layout_marginLeft="5dp"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_centerHorizontal="true"-->
-    <!--android:background="@drawable/my_button_bg"-->
-    <!--android:text="Set Budget"-->
-    <!--android:textAlignment="center" />-->
-    <!--</RelativeLayout>-->
-
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginRight="5dp"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:text="Change Budget amount"-->
+        <!--android:textColor="@color/White"-->
+        <!--android:background="#ff8c00"-->
+        <!--/>-->
 
     <!--</LinearLayout>-->
 
 
-    <!--</RelativeLayout>-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <RelativeLayout
+    android:layout_marginTop="65dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="60dp">
+
+    <LinearLayout
+    android:id="@+id/budgetLine"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/White"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <RelativeLayout
+    android:id="@+id/budgetBar"
+    android:layout_width="0dp"
+    android:layout_height="100dp"
+    android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/budgetHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/budgetButton"
+            android:textSize="20dp"
+            android:text="Budget Entered: "
+            android:textColor="@color/darkTransparentBlack"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/budgetIndicator"
+            android:layout_toEndOf="@+id/budgetHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/budgetButton"
+            android:textSize="20dp"
+            android:text="Rs "
+            android:textColor="@color/darkTransparentBlack"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:layout_toEndOf="@+id/budgetIndicator"
+            android:id="@+id/budget_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/budgetButton"
+            android:textSize="20dp"
+            android:textColor="@color/darkTransparentBlack"
+            android:text="0"
+            android:layout_marginLeft="5dp"/>
+
+
+    <Button
+    android:id="@+id/budgetButton"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:background="@drawable/my_button_bg"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:text="Set Budget"
+    android:textAlignment="center" />
+    </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/expenditureLine"
+            android:layout_below="@+id/budgetLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <RelativeLayout
+                android:id="@+id/ExpenditureBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/expenditureHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="Total Expenditure: "
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/darkTransparentBlack"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/expenditureValue"
+                    android:layout_toEndOf="@+id/expenditureHeading"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textAlignment="viewEnd"
+                    android:text="0"
+                    android:textColor="@color/darkTransparentBlack"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/expenditureSavings"
+                    android:layout_marginTop="2dp"
+                    android:layout_below="@+id/expenditureHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="Total Savings: "
+                    android:textColor="@color/darkTransparentBlack"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/savingsValue"
+                    android:layout_below="@+id/expenditureValue"
+                    android:layout_toEndOf="@+id/expenditureSavings"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textAlignment="viewEnd"
+                    android:text="0"
+                    android:textColor="@color/darkTransparentBlack"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/bookingExpenditureHeading"
+                    android:layout_below="@+id/savingsValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textSize="20dp"
+                    android:text="Booked Expenditure: "
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/darkTransparentBlack"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/bookingExpValue"
+                    android:layout_below="@+id/savingsValue"
+                    android:layout_toEndOf="@+id/bookingExpenditureHeading"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textAlignment="viewEnd"
+                    android:text="0"
+                    android:textColor="@color/darkTransparentBlack"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/expectedSavings"
+                    android:layout_marginTop="2dp"
+                    android:layout_below="@+id/bookingExpenditureHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="Expected Savings: "
+                    android:textColor="@color/darkTransparentBlack"
+                    android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/expectedSavingsValue"
+                    android:layout_below="@+id/bookingExpValue"
+                    android:layout_toEndOf="@+id/expectedSavings"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textAlignment="viewEnd"
+                    android:text="0"
+                    android:textColor="@color/darkTransparentBlack"
+                    android:layout_marginLeft="5dp"/>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/expenditureLine"
+            android:id="@+id/budgetLeftLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+
+        <RelativeLayout
+            android:id="@+id/budgetLeftBar"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:id="@+id/budgetLeftHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Budget Left: "
+                android:textColor="@color/darkTransparentBlack"
+                android:layout_marginLeft="5dp"/>
+
+
+            <TextView
+                android:id="@+id/budgetLeft"
+                android:layout_toEndOf="@+id/budgetLeftHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewEnd"
+                android:textSize="20dp"
+                android:text="0.0"
+                android:textColor="@color/darkTransparentBlack"
+                android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/budgetReqHeading"
+                android:layout_below="@+id/budgetLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Amount Short Of: "
+                android:textColor="@color/darkTransparentBlack"
+                android:layout_marginLeft="5dp"/>
+
+
+            <TextView
+                android:id="@+id/budgetReq"
+                android:layout_below="@+id/budgetLeft"
+                android:layout_toEndOf="@+id/budgetLeftHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewEnd"
+                android:textSize="20dp"
+                android:text="0.0"
+                android:textColor="@color/darkTransparentBlack"
+                android:layout_marginLeft="5dp"/>
+
+
+        </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:id="@+id/chooseLine"
+            android:layout_below="@+id/budgetLeftLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Complete Analysis"
+                android:textAlignment="center"/>
+
+            
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+    </ScrollView>
 
 </android.support.v4.widget.DrawerLayout>
