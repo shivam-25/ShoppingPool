@@ -77,6 +77,8 @@ dependencies {
     implementation 'com.mcxiaoke.volley:library-aar:1.0.0'
     implementation 'com.github.mancj:MaterialSearchBar:0.3.1'
 
+    implementation 'com.jjoe64:graphview:4.2.1'
+
     implementation 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
 
     testImplementation 'junit:junit:4.12'

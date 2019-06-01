@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="20dp"
         app:srcCompat="@drawable/iconimage" />
 
     <!-- Login progress -->
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="43dp">
+        android:layout_marginBottom="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,6 +122,17 @@
                 android:text="@string/action_sign_up"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/loginHeyButton"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/login_widget_margin"
+                android:background="@drawable/rounded_edittext"
+                android:backgroundTint="@color/colorAccent"
+                android:text="Login"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
     </ScrollView>

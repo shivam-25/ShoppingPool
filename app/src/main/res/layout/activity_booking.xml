@@ -7,14 +7,14 @@
     tools:context=".activities.BookingActivity">
 
     <include
-        android:id="@+id/main_page_toolbar"
+        android:id="@+id/main_page_toolbar3"
         layout="@layout/app_bar_layout">
     </include>
 
     <ImageView
 
 
-        android:layout_below="@id/main_page_toolbar"
+        android:layout_below="@id/main_page_toolbar3"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/itemDetailImage"
@@ -25,7 +25,7 @@
     <TextView
 
         android:id="@+id/itemDetailDiscountedPriceText"
-        android:layout_below="@id/main_page_toolbar"
+        android:layout_below="@id/main_page_toolbar3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"

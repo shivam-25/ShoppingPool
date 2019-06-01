@@ -64,7 +64,7 @@ public class RecommenderFragment extends Fragment {
 
     private String HTTP_JSON_URL;
 
-    private String iniURL = "http://18.218.190.44/recomendItemtoUser?userID=";
+    private String iniURL = "http://18.191.9.82/recomendItemtoUser?userID=";
     private FirebaseAuth mAuth;
     String currentUserID;
     private String fullname;
@@ -133,7 +133,7 @@ public class RecommenderFragment extends Fragment {
         System.out.println(fullname);
         StringTokenizer k=new StringTokenizer(fullname);
         fullname=k.nextToken().trim();
-        HTTP_JSON_URL = iniURL+fullname+"&count=30";
+        HTTP_JSON_URL = iniURL+currentUserID+"&count=20";
         RecommedRef = FirebaseDatabase.getInstance().getReference().child("RecommendedProducts").child(fullname);
         JSON_HTTP_CALL();
         recyclerView = (RecyclerView) view.findViewById(R.id.allProductsRecyclerView3);
@@ -358,197 +358,199 @@ public class RecommenderFragment extends Fragment {
             {
                 DatabaseReference ShopRef;
                 final TextView shopname = (TextView) mView.findViewById(R.id.productShopName);
-                ShopRef = FirebaseDatabase.getInstance().getReference().child("sellers").child("sellers-list").child(shopName).child("Shop-name");
-                ShopRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        shopname.setText(dataSnapshot.getValue(String.class));
-                    }
+                try {
+                    ShopRef = FirebaseDatabase.getInstance().getReference().child("sellers").child("sellers-list").child(shopName).child("Shop-name");
+                    ShopRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            shopname.setText(dataSnapshot.getValue(String.class));
+                        }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
+                }
+                catch (Exception e)
+                {
+
+                }
 
 
             }
 
             public void setProductName(String productName)
             {
-                TextView productname = (TextView) mView.findViewById(R.id.producttxtTitle);
-                productname.setText(productName);
+                try {
+                    TextView productname = (TextView) mView.findViewById(R.id.producttxtTitle);
+                    productname.setText(productName);
+                }
+                catch (Exception e)
+                {}
             }
 
             public void setProductVariant(String productVariant)
             {
-                StringTokenizer k=new StringTokenizer(productVariant,",");
-                TextView productvariant = (TextView) mView.findViewById(R.id.producttxtVariant);
-                TextView var1=(TextView) mView.findViewById(R.id.var1);
-                TextView var2=(TextView) mView.findViewById(R.id.var2);
-                TextView var3=(TextView) mView.findViewById(R.id.var3);
-                TextView var4=(TextView) mView.findViewById(R.id.var4);
-                TextView var5=(TextView) mView.findViewById(R.id.var5);
-                TextView var6=(TextView) mView.findViewById(R.id.var6);
-                TextView var7=(TextView) mView.findViewById(R.id.var7);
-                CardView variant1 = (CardView) mView.findViewById(R.id.variant1);
-                CardView variant2 = (CardView) mView.findViewById(R.id.variant2);
-                CardView variant3 = (CardView) mView.findViewById(R.id.variant3);
-                CardView variant4 = (CardView) mView.findViewById(R.id.variant4);
-                CardView variant5 = (CardView) mView.findViewById(R.id.variant5);
-                CardView variant6 = (CardView) mView.findViewById(R.id.variant6);
-                CardView variant7 = (CardView) mView.findViewById(R.id.variant7);
+                try {
+                    StringTokenizer k = new StringTokenizer(productVariant, ",");
+                    TextView productvariant = (TextView) mView.findViewById(R.id.producttxtVariant);
+                    TextView var1 = (TextView) mView.findViewById(R.id.var1);
+                    TextView var2 = (TextView) mView.findViewById(R.id.var2);
+                    TextView var3 = (TextView) mView.findViewById(R.id.var3);
+                    TextView var4 = (TextView) mView.findViewById(R.id.var4);
+                    TextView var5 = (TextView) mView.findViewById(R.id.var5);
+                    TextView var6 = (TextView) mView.findViewById(R.id.var6);
+                    TextView var7 = (TextView) mView.findViewById(R.id.var7);
+                    CardView variant1 = (CardView) mView.findViewById(R.id.variant1);
+                    CardView variant2 = (CardView) mView.findViewById(R.id.variant2);
+                    CardView variant3 = (CardView) mView.findViewById(R.id.variant3);
+                    CardView variant4 = (CardView) mView.findViewById(R.id.variant4);
+                    CardView variant5 = (CardView) mView.findViewById(R.id.variant5);
+                    CardView variant6 = (CardView) mView.findViewById(R.id.variant6);
+                    CardView variant7 = (CardView) mView.findViewById(R.id.variant7);
 
-                productvariant.setText(("Variants Available: "));
-                final int count = k.countTokens();
-                int i=0;
-                for(i=0;i<count && i<7;i++)
-                {
-                    if(i==0)
-                    {
-                        var1.setText(k.nextToken().trim());
-                    }
-                    if(i==1)
-                    {
-                        var2.setText(k.nextToken().trim());
-                    }
-                    if(i==2)
-                    {
-                        var3.setText(k.nextToken().trim());
-                    }
-                    if(i==3)
-                    {
-                        var4.setText(k.nextToken().trim());
-                    }
-                    if(i==4)
-                    {
-                        var5.setText(k.nextToken().trim());
-                    }
-                    if(i==5)
-                    {
-                        var6.setText(k.nextToken().trim());
-                    }
-                    if(i==6)
-                    {
-                        var7.setText(k.nextToken().trim());
+                    productvariant.setText(("Variants Available: "));
+                    final int count = k.countTokens();
+                    int i = 0;
+                    for (i = 0; i < count && i < 7; i++) {
+                        if (i == 0) {
+                            var1.setText(k.nextToken().trim());
+                        }
+                        if (i == 1) {
+                            var2.setText(k.nextToken().trim());
+                        }
+                        if (i == 2) {
+                            var3.setText(k.nextToken().trim());
+                        }
+                        if (i == 3) {
+                            var4.setText(k.nextToken().trim());
+                        }
+                        if (i == 4) {
+                            var5.setText(k.nextToken().trim());
+                        }
+                        if (i == 5) {
+                            var6.setText(k.nextToken().trim());
+                        }
+                        if (i == 6) {
+                            var7.setText(k.nextToken().trim());
+                        }
+
                     }
 
+                    for (i = 7; i > count; i--) {
+                        if (i == 7) {
+                            variant7.setVisibility(View.INVISIBLE);
+                        }
+                        if (i == 6) {
+                            variant6.setVisibility(View.INVISIBLE);
+                        }
+                        if (i == 5) {
+                            variant5.setVisibility(View.INVISIBLE);
+                        }
+                        if (i == 4) {
+                            variant4.setVisibility(View.INVISIBLE);
+                        }
+                        if (i == 3) {
+                            variant3.setVisibility(View.INVISIBLE);
+                        }
+                        if (i == 2) {
+                            variant2.setVisibility(View.INVISIBLE);
+                        }
+                        if (i == 1) {
+                            variant1.setVisibility(View.INVISIBLE);
+                        }
+
+
+                    }
                 }
-
-                for(i=7;i>count;i--){
-                    if(i==7)
-                    {
-                        variant7.setVisibility(View.INVISIBLE);
-                    }
-                    if(i==6)
-                    {
-                        variant6.setVisibility(View.INVISIBLE);
-                    }
-                    if(i==5)
-                    {
-                        variant5.setVisibility(View.INVISIBLE);
-                    }
-                    if(i==4)
-                    {
-                        variant4.setVisibility(View.INVISIBLE);
-                    }
-                    if(i==3)
-                    {
-                        variant3.setVisibility(View.INVISIBLE);
-                    }
-                    if(i==2)
-                    {
-                        variant2.setVisibility(View.INVISIBLE);
-                    }
-                    if(i==1)
-                    {
-                        variant1.setVisibility(View.INVISIBLE);
-                    }
-
+                catch(Exception e)
+                {
 
                 }
             }
 
             public void setProductImage (Context ctxl, String productImage)
             {
-                ImageView productimage = (ImageView) mView.findViewById(R.id.ProductImageView);
-                Picasso.with(ctxl).load(productImage).into(productimage);
+                try {
+                    ImageView productimage = (ImageView) mView.findViewById(R.id.ProductImageView);
+                    Picasso.with(ctxl).load(productImage).into(productimage);
+                }
+                catch (Exception e)
+                {}
             }
 
             public void setStockValue (String stockValue)
             {
                 int sum=0;
-                StringTokenizer k=new StringTokenizer(stockValue,",");
-                while(k.hasMoreTokens()){
-                    sum = sum+Integer.parseInt(k.nextToken().trim());
+                try {
+                    StringTokenizer k = new StringTokenizer(stockValue, ",");
+                    while (k.hasMoreTokens()) {
+                        sum = sum + Integer.parseInt(k.nextToken().trim());
+                    }
+                    TextView stockvalue = (TextView) mView.findViewById(R.id.productStockLimitText);
+                    stockvalue.setText(("" + sum));
                 }
-                TextView stockvalue = (TextView) mView.findViewById(R.id.productStockLimitText);
-                stockvalue.setText((""+sum));
+                catch(Exception e)
+                {
+
+                }
             }
 
-            public void setPrice (String discountPercent, String Price, String Offer)
-            {
-                TextView discountpercent = (TextView) mView.findViewById(R.id.producttxtDiscount);
-                TextView originalprice = (TextView) mView.findViewById(R.id.producttxtPrice);
-                TextView offer = (TextView) mView.findViewById(R.id.productOffer);
-                TextView price = (TextView) mView.findViewById(R.id.productdiscountedtxtPrice);
-                if((discountPercent==null  || discountPercent.equalsIgnoreCase("")) && (Offer==null || Offer.equalsIgnoreCase(""))) {
-                    StringTokenizer p=new StringTokenizer(Price,",");
-                    String s="";
-                    s="₹"+p.nextToken().trim();
-                    price.setText(("Cost: "+s));
-                    discountpercent.setVisibility(View.INVISIBLE);
-                    originalprice.setVisibility(View.INVISIBLE);
-                    offer.setVisibility(View.INVISIBLE);
-                }
-                else
-                {
-                    if(Double.parseDouble(discountPercent) == 0.0)
-                    {
-                        offer.setText(Offer);
-                        StringTokenizer p=new StringTokenizer(Price,",");
-                        String s="";
-
-                        s="₹"+p.nextToken().trim();
-                        price.setText(("Cost: "+s));
+            public void setPrice (String discountPercent, String Price, String Offer) {
+                try {
+                    TextView discountpercent = (TextView) mView.findViewById(R.id.producttxtDiscount);
+                    TextView originalprice = (TextView) mView.findViewById(R.id.producttxtPrice);
+                    TextView offer = (TextView) mView.findViewById(R.id.productOffer);
+                    TextView price = (TextView) mView.findViewById(R.id.productdiscountedtxtPrice);
+                    if ((discountPercent == null || discountPercent.equalsIgnoreCase("")) && (Offer == null || Offer.equalsIgnoreCase(""))) {
+                        StringTokenizer p = new StringTokenizer(Price, ",");
+                        String s = "";
+                        s = "₹" + p.nextToken().trim();
+                        price.setText(("Cost: " + s));
                         discountpercent.setVisibility(View.INVISIBLE);
                         originalprice.setVisibility(View.INVISIBLE);
-                    }
-
-                    else if((Offer==null || Offer.equalsIgnoreCase("")) && Double.parseDouble(discountPercent) != 0.0)
-                    {
-                        discountpercent.setText((discountPercent+"%"));
-                        StringTokenizer prices = new StringTokenizer(Price,",");
-                        String s=prices.nextToken().trim();
-                        Double d=Double.parseDouble(discountPercent);
-                        Double p = Double.parseDouble(s);
-                        Double finalPrice = p-(p*d/100);
-                        String s1=""+finalPrice;
-
-
-
-                        price.setText(("Cost: "+s1));
-                        originalprice.setText((" on "+s));
                         offer.setVisibility(View.INVISIBLE);
-                    }
+                    } else {
+                        if (Double.parseDouble(discountPercent) == 0.0) {
+                            offer.setText(Offer);
+                            StringTokenizer p = new StringTokenizer(Price, ",");
+                            String s = "";
 
-                    else
-                    {
-                        discountpercent.setText((discountPercent+"%"));
-                        StringTokenizer prices = new StringTokenizer(Price,",");
-                        String s=prices.nextToken().trim();
-                        Double d=Double.parseDouble(discountPercent);
-                        Double p = Double.parseDouble(s);
-                        Double finalPrice = p-(p*d/100);
-                        String s1=""+finalPrice;
+                            s = "₹" + p.nextToken().trim();
+                            price.setText(("Cost: " + s));
+                            discountpercent.setVisibility(View.INVISIBLE);
+                            originalprice.setVisibility(View.INVISIBLE);
+                        } else if ((Offer == null || Offer.equalsIgnoreCase("")) && Double.parseDouble(discountPercent) != 0.0) {
+                            discountpercent.setText((discountPercent + "%"));
+                            StringTokenizer prices = new StringTokenizer(Price, ",");
+                            String s = prices.nextToken().trim();
+                            Double d = Double.parseDouble(discountPercent);
+                            Double p = Double.parseDouble(s);
+                            Double finalPrice = p - (p * d / 100);
+                            String s1 = "" + finalPrice;
 
 
+                            price.setText(("Cost: " + s1));
+                            originalprice.setText((" on " + s));
+                            offer.setVisibility(View.INVISIBLE);
+                        } else {
+                            discountpercent.setText((discountPercent + "%"));
+                            StringTokenizer prices = new StringTokenizer(Price, ",");
+                            String s = prices.nextToken().trim();
+                            Double d = Double.parseDouble(discountPercent);
+                            Double p = Double.parseDouble(s);
+                            Double finalPrice = p - (p * d / 100);
+                            String s1 = "" + finalPrice;
 
-                        price.setText(("Cost: "+s1));
-                        originalprice.setText((" on "+s));
-                        offer.setText(Offer);
+
+                            price.setText(("Cost: " + s1));
+                            originalprice.setText((" on " + s));
+                            offer.setText(Offer);
+                        }
                     }
                 }
+                catch(Exception e){}
             }
 
 

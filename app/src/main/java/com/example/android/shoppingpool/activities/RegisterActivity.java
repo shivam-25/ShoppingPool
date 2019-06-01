@@ -96,6 +96,22 @@ public class RegisterActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
+
+        Button mLoginHeyBut = (Button) findViewById(R.id.loginHeyButton);
+        mLoginHeyBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToLoginPage();
+            }
+        });
+    }
+
+    public void sendToLoginPage()
+    {
+        Intent setupIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(setupIntent);
+        finish();
     }
 
     private void attemptLogin() {
@@ -241,6 +257,7 @@ public class RegisterActivity extends AppCompatActivity {
                     //showProgress(false);
                     Log.d(TAG, "Phone number exists.");
                     Toast.makeText(getApplicationContext(), R.string.phone_exists_error, Toast.LENGTH_SHORT).show();
+                    sendToLoginPage();
                 } else {
                     Log.d(TAG, "Phone number available.");
                     verifyPhone(phone);
@@ -333,7 +350,7 @@ public class RegisterActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = gson.toJson(user);
         editor.putString("current_user", json);
-        editor.commit();
+        editor.apply();
 
         // initialise settings pref
         SharedPreferences settingsPref = PreferenceManager
@@ -344,6 +361,12 @@ public class RegisterActivity extends AppCompatActivity {
         settingsEditor.putString("prefEmail" , user.getInfo().getEmail());
         settingsEditor.putBoolean("prefAlert", user.getLocation().hasAlertAllowed());
         settingsEditor.apply();
+
+        System.out.println("222222222222222222222222222222222222222");
+        System.out.println(email);
+        System.out.println(password);
+        System.out.println("2222222222222222222222222222222222222222");
+
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -356,15 +379,14 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            String message = task.getException().getMessage();
-                            Toast.makeText(RegisterActivity.this, "Error Occured: " + message, Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(RegisterActivity.this, "Error Occured: ", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent);
                         }
                     }
                 });
-        finish();
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(intent);
+        //finish();
+
     }
 
     @Override
@@ -372,7 +394,12 @@ public class RegisterActivity extends AppCompatActivity {
         if (requestCode == REQUEST_VERIFICATION) {
             if (resultCode == RESULT_OK) {
                 if (name != null && phone != null && password != null) {
+                    System.out.println("##########################################");
+                    System.out.println(email);
+                    System.out.println(password);
+                    System.out.println("##########################################");
                     registerUser(name, phone, email, password);
+
                 }
                 Log.d(TAG, "OnActivityResult RESULT_OK");
             } else if (resultCode == RESULT_CANCELED) {

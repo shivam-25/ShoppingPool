@@ -10,14 +10,17 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -30,12 +33,16 @@ import com.example.android.shoppingpool.fragments.AllProductsFragment;
 import com.example.android.shoppingpool.fragments.RecommenderFragment;
 import com.example.android.shoppingpool.models.RecommendedProducts;
 import com.example.android.shoppingpool.models.detail;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -59,14 +66,19 @@ public class ItemDetailActivity extends AppCompatActivity {
     private String baseURL = "https://shoppingpool-5c28d.firebaseio.com/categories";
     private String baseURL2 = "https://shoppingpool-5c28d.firebaseio.com/promoted_products";
     private RecyclerView recyclerView;
+    private Button analysisBut;
+    private FirebaseAuth mAuth;
     HashMap<String, String> map1 = new HashMap<>();
     HashMap<String, String> map2 = new HashMap<>();
+    private String current_user_id;
     private static final double RADIUS_OF_EARTH = 6371e3; // metres
+    private Toolbar mToolbar;
 
     private List<detail> ListOfProduct;
     private detailAdapter mAdapter;
     private ProgressBar progressBar;
     private JSONObject json1, json2;
+    String shopUrlBest;
     int i=1;
 
     @Override
@@ -74,10 +86,15 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
         progressBar = (ProgressBar) findViewById(R.id.detailProgressBar);
-
+        mAuth = FirebaseAuth.getInstance();
+        current_user_id = mAuth.getCurrentUser().getUid();
         recyclerView = (RecyclerView) findViewById(R.id.detailActivityRecyclerView);
-
+        analysisBut = (Button) findViewById(R.id.addForAnalysis);
         ProductKey = getIntent().getExtras().get("Product_Key").toString();
+
+        mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar2);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Product Details");
         ListOfProduct = new ArrayList<>();
         StringTokenizer k =new StringTokenizer(ProductKey,"+");
         Category = k.nextToken().trim();
@@ -91,6 +108,34 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         ProductURL = baseURL + "/" + Category + ".json";
         ProProductURL = baseURL2+"/"+Category+".json";
+
+        SharedPreferences sp1 = getSharedPreferences("LOGGED_USER", Context.MODE_PRIVATE);
+        String user = sp1.getString("current_user", null);
+        JSONObject s1;
+        try {
+            s1 = new JSONObject(user);
+        }
+        catch (Exception e)
+        {
+            s1=null;
+        }
+        JSONObject loc1=s1.optJSONObject("location");
+        final String lat1 = loc1.optString("latitude").trim();
+        final String lng1 = loc1.optString("longitude").trim();
+        int latInt1 = (int)Double.parseDouble(lat1);
+        int lngInt1 = (int)Double.parseDouble(lng1);
+
+        String proTemp = Product, ref="";
+        for(int x=0;x<proTemp.length();x++)
+        {
+            if(proTemp.charAt(x)==' ')
+                ref=ref+"%20";
+            else
+                ref=ref+proTemp.charAt(x);
+
+        }
+
+        shopUrlBest = "http://18.219.168.62/getShops?lat="+latInt1+"&lon="+lngInt1+"&product="+ref;
 
         final ImageView productImage = (ImageView) findViewById(R.id.coverphoto);
         ImageRef.addValueEventListener(new ValueEventListener() {
@@ -124,6 +169,130 @@ public class ItemDetailActivity extends AppCompatActivity {
         JSON_HTTP_CALL();
         JSON_HTTP_CALL2();
 
+        analysisBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                JSON_HTTP_CALL4();
+            }
+        });
+
+    }
+
+    private void JSON_HTTP_CALL4() {
+        new JSONParse4().execute();
+    }
+
+    private class JSONParse4 extends AsyncTask<String,String,JSONObject> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject json) {
+
+
+            try {
+                ParseJSonResponse4(json);
+            } catch(JSONException e){
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... args) {
+            JSONParser jParser = new JSONParser();
+
+            // Getting JSON from URL
+            JSONObject json = jParser.getJSONFromUrl(shopUrlBest);
+            return json;
+        }
+
+    }
+
+    private void ParseJSonResponse4(JSONObject json) throws JSONException{
+        Iterator<String> keys=json.keys();
+        DatabaseReference prodRef, proProdRef;
+        prodRef = FirebaseDatabase.getInstance().getReference().child("categories").child(Category);
+        proProdRef = FirebaseDatabase.getInstance().getReference().child("promoted_products").child(Category);
+        while(keys.hasNext()){
+            String key = (String)keys.next();
+            String l = json.get(key).toString();
+            prodRef.child(l).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists())
+                    {
+                        bestBuyUpdate(dataSnapshot.child("NAME").getValue(String.class),"No",dataSnapshot.child("SOLD_BY").getValue(String.class));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            proProdRef.child(l).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists())
+                    {
+                        bestBuyUpdate(dataSnapshot.child("NAME").getValue(String.class),"Yes",dataSnapshot.child("SOLD_BY").getValue(String.class));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            break;
+
+        }
+
+    }
+
+    public void bestBuyUpdate(final String name, final String sig, String seller)
+    {
+        final String uniId = name+"_"+seller;
+        final DatabaseReference prodRef, proProdRef, finalRef, bestBuyUpdateRef;
+        prodRef = FirebaseDatabase.getInstance().getReference().child("categories").child(Category);
+        proProdRef = FirebaseDatabase.getInstance().getReference().child("promoted_products").child(Category);
+        bestBuyUpdateRef = FirebaseDatabase.getInstance().getReference().child("Best_Buys").child(current_user_id);
+        if(sig.equalsIgnoreCase("Yes"))
+            finalRef = proProdRef;
+        else
+            finalRef = prodRef;
+        finalRef.child(uniId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    HashMap h=new HashMap();
+                    h.put("proId", uniId);
+                    h.put("promoted", sig);
+                    h.put("category", Category);
+                    bestBuyUpdateRef.child(name).updateChildren(h)
+                        .addOnCompleteListener(new OnCompleteListener() {
+                            @Override
+                            public void onComplete(@NonNull Task task) {
+                                if(task.isSuccessful())
+                                {
+                                    System.out.println("Updated");
+                                    Toast.makeText(ItemDetailActivity.this, "Result Generated and Visible in Software Tab...", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -280,68 +449,76 @@ public class ItemDetailActivity extends AppCompatActivity {
             keys2=null;
 
         int listSize=0;
-        while(keys1!=null && keys1.hasNext()){
-            String key = (String)keys1.next();
+        try {
+            while (keys1 != null && keys1.hasNext()) {
+                String key = (String) keys1.next();
 
-            StringTokenizer c=new StringTokenizer(key,"_");
-            key=c.nextToken().trim();
-            String shopId = c.nextToken().trim();
-            String color, discount, offer, gender, name, price, qty, size, soldBy, url, edition, weight, water;
-            if(key.equals(Product)) {
-                listSize++;
-                String l = json1.opt((key+"_"+shopId)).toString();
-                JSONObject p = new JSONObject(l);
-                color = p.optString("COLOR");
-                discount = p.optString("DISCOUNT");
-                offer = p.optString("OFFER");
-                gender = p.optString("GENDER");
-                name = p.optString("NAME");
-                price = p.optString("PRICE");
-                qty = p.optString("QTY");
-                size = p.optString("SIZE");
-                soldBy = p.optString("SOLD_BY");
-                url = p.optString("URL");
-                edition = p.optString("EDITION");
-                weight = p.optString("WEIGHT");
-                water = p.optString("WATER");
+                StringTokenizer c = new StringTokenizer(key, "_");
+                key = c.nextToken().trim();
+                String shopId = c.nextToken().trim();
+                String color, discount, offer, gender, name, price, qty, size, soldBy, url, edition, weight, water;
+                if (key.equals(Product)) {
+                    listSize++;
+                    String l = json1.opt((key + "_" + shopId)).toString();
+                    JSONObject p = new JSONObject(l);
+                    color = p.optString("COLOR");
+                    discount = p.optString("DISCOUNT");
+                    offer = p.optString("OFFER");
+                    gender = p.optString("GENDER");
+                    name = p.optString("NAME");
+                    price = p.optString("PRICE");
+                    qty = p.optString("QTY");
+                    size = p.optString("SIZE");
+                    soldBy = p.optString("SOLD_BY");
+                    url = p.optString("URL");
+                    edition = p.optString("EDITION");
+                    weight = p.optString("WEIGHT");
+                    water = p.optString("WATER");
 
-                detail eachProduct = new detail(color, discount, offer, gender, name, price, qty, size, soldBy, url, edition, weight, water);
-                ListOfProduct.add(eachProduct);
+                    detail eachProduct = new detail(color, discount, offer, gender, name, price, qty, size, soldBy, url, edition, weight, water);
+                    ListOfProduct.add(eachProduct);
+                }
+
             }
-
         }
+        catch (Exception e)
+        {}
 
-        while(keys2!=null && keys2.hasNext()){
-            String key = (String)keys2.next();
+        try {
+            while (keys2 != null && keys2.hasNext()) {
+                String key = (String) keys2.next();
 
-            StringTokenizer c=new StringTokenizer(key,"_");
-            key=c.nextToken().trim();
-            String shopId = c.nextToken().trim();
+                StringTokenizer c = new StringTokenizer(key, "_");
+                key = c.nextToken().trim();
+                String shopId = c.nextToken().trim();
 
-            String color, discount, offer, gender, name, price, qty, size, soldBy, url, edition, weight, water;
-            if(key.equals(Product)) {
-                listSize++;
-                String l = json2.opt((key+"_"+shopId)).toString();
-                JSONObject p = new JSONObject(l);
-                color = p.optString("COLOR");
-                discount = p.optString("DISCOUNT");
-                offer = p.optString("OFFER");
-                gender = p.optString("GENDER");
-                name = p.optString("NAME");
-                price = p.optString("PRICE");
-                qty = p.optString("QTY");
-                size = p.optString("SIZE");
-                soldBy = p.optString("SOLD_BY");
-                url = p.optString("URL");
-                edition = p.optString("EDITION");
-                weight = p.optString("WEIGHT");
-                water = p.optString("WATER");
+                String color, discount, offer, gender, name, price, qty, size, soldBy, url, edition, weight, water;
+                if (key.equals(Product)) {
+                    listSize++;
+                    String l = json2.opt((key + "_" + shopId)).toString();
+                    JSONObject p = new JSONObject(l);
+                    color = p.optString("COLOR");
+                    discount = p.optString("DISCOUNT");
+                    offer = p.optString("OFFER");
+                    gender = p.optString("GENDER");
+                    name = p.optString("NAME");
+                    price = p.optString("PRICE");
+                    qty = p.optString("QTY");
+                    size = p.optString("SIZE");
+                    soldBy = p.optString("SOLD_BY");
+                    url = p.optString("URL");
+                    edition = p.optString("EDITION");
+                    weight = p.optString("WEIGHT");
+                    water = p.optString("WATER");
 
-                detail eachProduct = new detail(color, discount, offer, gender, name, price, qty, size, soldBy, url, edition, weight, water);
-                ListOfProduct.add(eachProduct);
+                    detail eachProduct = new detail(color, discount, offer, gender, name, price, qty, size, soldBy, url, edition, weight, water);
+                    ListOfProduct.add(eachProduct);
+                }
+
             }
-
         }
+        catch (Exception e)
+        {}
 
 
         progressBar.setVisibility(View.INVISIBLE);

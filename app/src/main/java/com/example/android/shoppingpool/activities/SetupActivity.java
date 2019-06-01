@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.android.shoppingpool.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -77,10 +78,11 @@ public class SetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                Intent galleryIntent = new Intent();
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                galleryIntent.setType("image/*");
-                startActivityForResult(galleryIntent, Gallery_Pick);
+                OpenGallery();
+                //Intent galleryIntent = new Intent();
+                //galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                //galleryIntent.setType("image/*");
+                //startActivityForResult(galleryIntent, Gallery_Pick);
             }
         });
 
@@ -108,6 +110,14 @@ public class SetupActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void OpenGallery()
+    {
+        Intent galleryIntent = new Intent();
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent, Gallery_Pick);
     }
 
     @Override
@@ -138,40 +148,38 @@ public class SetupActivity extends AppCompatActivity {
 
                 Uri resultUri = result.getUri();
 
-                StorageReference filePath = UserProfileImageRef.child(currentUserID + ".jpg");
+                final StorageReference filePath = UserProfileImageRef.child(currentUserID + ".jpg");
 
-                filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                filePath.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull final Task<UploadTask.TaskSnapshot> task)
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
                     {
-                        if(task.isSuccessful())
+
+                        filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
                         {
-                            Toast.makeText(SetupActivity.this, "Profile Image stored successfully to Firebase storage...", Toast.LENGTH_SHORT).show();
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String downloadUrl=uri.toString();
 
-                            final String downloadUrl = task.getResult().getStorage().getDownloadUrl().toString();
+                                UsersRef.child("profileimage").setValue(downloadUrl)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Intent selfIntent = new Intent(SetupActivity.this, SetupActivity.class);
+                                                    startActivity(selfIntent);
 
-                            UsersRef.child("profileimage").setValue(downloadUrl)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task)
-                                        {
-                                            if(task.isSuccessful())
-                                            {
-                                                Intent selfIntent = new Intent(SetupActivity.this, SetupActivity.class);
-                                                startActivity(selfIntent);
-
-                                                Toast.makeText(SetupActivity.this, "Profile Image stored to Firebase Database Successfully...", Toast.LENGTH_SHORT).show();
-                                                loadingBar.dismiss();
+                                                    Toast.makeText(SetupActivity.this, "Profile Image stored to Firebase Database Successfully...", Toast.LENGTH_SHORT).show();
+                                                    loadingBar.dismiss();
+                                                } else {
+                                                    String message = task.getException().getMessage();
+                                                    Toast.makeText(SetupActivity.this, "Error Occured: " + message, Toast.LENGTH_SHORT).show();
+                                                    loadingBar.dismiss();
+                                                }
                                             }
-                                            else
-                                            {
-                                                String message = task.getException().getMessage();
-                                                Toast.makeText(SetupActivity.this, "Error Occured: " + message, Toast.LENGTH_SHORT).show();
-                                                loadingBar.dismiss();
-                                            }
-                                        }
-                                    });
-                        }
+                                        });
+                            }
+                        });
                     }
                 });
             }

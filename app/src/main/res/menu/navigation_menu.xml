@@ -12,26 +12,6 @@
         android:icon="@drawable/profile_icon"/>
 
     <item
-        android:id="@+id/nav_home"
-        android:title="home"
-        android:icon="@drawable/home"/>
-
-    <item
-        android:id="@+id/nav_friends"
-        android:title="Friends"
-        android:icon="@drawable/friends"/>
-
-    <item
-        android:id="@+id/nav_find_friends"
-        android:title="Find Friends"
-        android:icon="@drawable/find_people"/>
-
-    <item
-        android:id="@+id/nav_messages"
-        android:title="Messages"
-        android:icon="@drawable/messages"/>
-
-    <item
         android:id="@+id/nav_settings"
         android:title="Settings"
         android:icon="@drawable/settings"/>

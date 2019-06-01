@@ -2,23 +2,37 @@ package com.example.android.shoppingpool.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.shoppingpool.R;
+import com.example.android.shoppingpool.activities.BookingActivity;
 import com.example.android.shoppingpool.activities.JSONParser;
+import com.example.android.shoppingpool.activities.MainActivity;
 import com.example.android.shoppingpool.activities.PostActivity;
+import com.example.android.shoppingpool.models.BestBuyProducts;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.database.SnapshotParser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +40,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.ValueDependentColor;
+import com.jjoe64.graphview.series.BarGraphSeries;
+import com.jjoe64.graphview.series.DataPoint;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,13 +63,16 @@ public class SoftFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private FirebaseAuth mAuth;
-    private DatabaseReference budgetReference, perUserReference, boughtProducts, bookedProducts, UsersRef;
+    private DatabaseReference budgetReference, perUserReference, boughtProducts, bookedProducts, UsersRef, bestBuys;
     private Button budgetButton;
     private TextView budget, expenditure, savings, expExpenditure, expSavings, budgetLeft, budgetReq;
     private String current_user_id;
     private String bookedURL = "https://shoppingpool-5c28d.firebaseio.com/sales/buyer_wise";
     private String bookedURL2 = "https://shoppingpool-5c28d.firebaseio.com/Booked_Products";
-
+    private GraphView mGraph;
+    private RecyclerView productsList;
+    private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
+    private ProgressBar progressBar;
 
 
     public SoftFragment() {
@@ -81,6 +104,7 @@ public class SoftFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_soft, container, false);
         mAuth = FirebaseAuth.getInstance();
+        mGraph = (GraphView) view.findViewById(R.id.graph);
         current_user_id = mAuth.getCurrentUser().getUid();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("AppUsers");
         budgetReference = FirebaseDatabase.getInstance().getReference().child("AppUsers").child("BudgetDetails");
@@ -96,10 +120,21 @@ public class SoftFragment extends Fragment {
         budgetReq = (TextView) view.findViewById(R.id.budgetReq);
         bookedURL = bookedURL+"/"+current_user_id + ".json";
         bookedURL2 = bookedURL2+"/"+current_user_id+".json";
+        createFieldsInDatabase();
+        bestBuys = FirebaseDatabase.getInstance().getReference().child("Best_Buys").child(current_user_id);
+        productsList = (RecyclerView) view.findViewById(R.id.bestBuys);
+        productsList.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManagerOfrecyclerViewTop = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        productsList.setLayoutManager(layoutManagerOfrecyclerViewTop);
+        progressBar = view.findViewById(R.id.bestBuysProgressBar);
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(productsList);
+
+        fillingBestBuys();
         budgetReference.child(current_user_id).child("Budget").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                budget.setText(dataSnapshot.getValue(String.class));
+                budget.setText((dataSnapshot.getValue(String.class)));
             }
 
             @Override
@@ -110,7 +145,7 @@ public class SoftFragment extends Fragment {
         budgetReference.child(current_user_id).child("Expenditure").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                expenditure.setText(dataSnapshot.getValue(String.class));
+                expenditure.setText(("Rs "+dataSnapshot.getValue(String.class)));
             }
 
             @Override
@@ -122,7 +157,7 @@ public class SoftFragment extends Fragment {
         budgetReference.child(current_user_id).child("Savings").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                savings.setText(dataSnapshot.getValue(String.class));
+                savings.setText(("Rs "+dataSnapshot.getValue(String.class)));
             }
 
             @Override
@@ -134,7 +169,7 @@ public class SoftFragment extends Fragment {
         budgetReference.child(current_user_id).child("Bookings").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                expExpenditure.setText(dataSnapshot.getValue(String.class));
+                expExpenditure.setText(("Rs "+dataSnapshot.getValue(String.class)));
             }
 
             @Override
@@ -146,7 +181,7 @@ public class SoftFragment extends Fragment {
         budgetReference.child(current_user_id).child("Booked Savings").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                expSavings.setText(dataSnapshot.getValue(String.class));
+                expSavings.setText(("Rs "+dataSnapshot.getValue(String.class)));
             }
 
             @Override
@@ -165,10 +200,20 @@ public class SoftFragment extends Fragment {
         budgetReference.child(current_user_id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                double val = Double.valueOf(dataSnapshot.child("Budget").getValue(String.class))-Double.valueOf(dataSnapshot.child("Expenditure").getValue(String.class));
-                budgetLeft.setText(String.valueOf(val));
-                double addVal = Double.valueOf(dataSnapshot.child("Bookings").getValue(String.class))-Double.valueOf(dataSnapshot.child("Budget").getValue(String.class));
-                budgetReq.setText(String.valueOf(addVal));
+                try {
+                    double val = Double.valueOf(dataSnapshot.child("Budget").getValue(String.class)) - Double.valueOf(dataSnapshot.child("Expenditure").getValue(String.class));
+                    budgetLeft.setText(("Rs " + String.valueOf(val)));
+                    double addVal = Double.valueOf(dataSnapshot.child("Bookings").getValue(String.class)) - Double.valueOf(dataSnapshot.child("Budget").getValue(String.class));
+                    budgetReq.setText(("Rs " + String.valueOf(addVal)));
+                    String budget = dataSnapshot.child("Budget").getValue(String.class);
+                    String exp = dataSnapshot.child("Expenditure").getValue(String.class);
+                    String savings = dataSnapshot.child("Savings").getValue(String.class);
+                    plotGraph(budget, exp, savings);
+                }
+                catch (Exception e)
+                {
+
+                }
             }
 
             @Override
@@ -178,8 +223,283 @@ public class SoftFragment extends Fragment {
         });
 
 
-        createFieldsInDatabase();
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        firebaseRecyclerAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        firebaseRecyclerAdapter.stopListening();
+    }
+
+    public void fillingBestBuys()
+    {
+        progressBar.setVisibility(View.VISIBLE);
+        productsList.setVisibility(View.INVISIBLE);
+        Query query = bestBuys;
+        FirebaseRecyclerOptions<BestBuyProducts> options =
+                new FirebaseRecyclerOptions.Builder<BestBuyProducts>()
+                    .setQuery(query, new SnapshotParser<BestBuyProducts>(){
+                        @NonNull
+                        @Override
+                        public BestBuyProducts parseSnapshot(@NonNull DataSnapshot snapshot){
+                            return new BestBuyProducts(snapshot.child("category").getValue().toString(),
+                                    snapshot.child("proId").getValue().toString(),
+                                    snapshot.child("promoted").getValue().toString());
+                        }
+                    })
+                    .build();
+
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<BestBuyProducts, BestViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull BestViewHolder holder, int position, @NonNull BestBuyProducts model)
+            {
+                final String ProductKey = getRef(position).getKey();
+
+                holder.setAll(model.getProId(), model.getCategory(), model.getPromoted(), getContext());
+                holder.setImage(model.getProId(), model.getCategory(), model.getPromoted(), getContext());
+                holder.setBook(model.getProId(), model.getCategory(), model.getPromoted(), getContext());
+            }
+
+            @NonNull
+            @Override
+            public BestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.best_buy_item_layout, parent, false);
+
+                return new BestViewHolder(view);
+            }
+        };
+        productsList.setAdapter(firebaseRecyclerAdapter);
+        progressBar.setVisibility(View.INVISIBLE);
+        productsList.setVisibility(View.VISIBLE);
+    }
+
+    public class BestViewHolder extends RecyclerView.ViewHolder {
+
+        View mView;
+        Button bookBut;
+
+        public  BestViewHolder(View itemView) {
+            super(itemView);
+            mView = itemView;
+            bookBut = mView.findViewById(R.id.bestBuyBook);
+        }
+
+        public void setBook(String proId, final String category, String promoted, final Context ctx1)
+        {
+            DatabaseReference proRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference finRef;
+            if(promoted.equalsIgnoreCase("No")) {
+                finRef = proRef.child("categories").child(category).child(proId);
+                finRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            final String variantId;
+                            if(category.equalsIgnoreCase("Books"))
+                                variantId = "EDITION";
+
+                            else if(category.equalsIgnoreCase("Groceries"))
+                                variantId = "WEIGHT";
+
+                            else if(category.equalsIgnoreCase("Luggage"))
+                                variantId = "SIZE";
+                            else
+                                variantId = "SIZE";
+                            bookBut.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent clickProductIntent = new Intent(ctx1, BookingActivity.class);
+                                    clickProductIntent.putExtra("Product_Key_Booked", (dataSnapshot.child("SOLD_BY").getValue(String.class)+"#"+category+"#"+dataSnapshot.child("NAME").getValue(String.class)+"#"+dataSnapshot.child(variantId).getValue(String.class)+"#"+dataSnapshot.child("QTY").getValue(String.class)+"#"+dataSnapshot.child("PRICE").getValue(String.class)));
+                                    startActivity(clickProductIntent);
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            else
+            {
+                finRef = proRef.child("promoted_products").child(category).child(proId);
+                finRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            final String variantId;
+                            if(category.equalsIgnoreCase("Books"))
+                                variantId = "EDITION";
+
+                            else if(category.equalsIgnoreCase("Groceries"))
+                                variantId = "WEIGHT";
+
+                            else if(category.equalsIgnoreCase("Luggage"))
+                                variantId = "SIZE";
+                            else
+                                variantId = "SIZE";
+                            bookBut.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent clickProductIntent = new Intent(ctx1, BookingActivity.class);
+                                    clickProductIntent.putExtra("Product_Key_Booked", (dataSnapshot.child("SOLD_BY").getValue(String.class)+"#"+category+"#"+dataSnapshot.child("NAME").getValue(String.class)+"#"+dataSnapshot.child(variantId).getValue(String.class)+"#"+dataSnapshot.child("QTY").getValue(String.class)+"#"+dataSnapshot.child("PRICE").getValue(String.class)));
+                                    startActivity(clickProductIntent);
+                                }
+                            });
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        }
+
+        public void setImage(String proId, final String category, String promoted, final Context ctx1)
+        {
+            DatabaseReference proRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference finRef;
+            final ImageView PostImage = (ImageView) mView.findViewById(R.id.bestBuyImage);
+            if(promoted.equalsIgnoreCase("No"))
+            {
+                finRef = proRef.child("categories").child(category).child(proId);
+                finRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            Picasso.with(ctx1).load(dataSnapshot.child("URL").getValue(String.class)).into(PostImage);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+            else
+            {
+                finRef = proRef.child("promoted_products").child(category).child(proId);
+                finRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            Picasso.with(ctx1).load(dataSnapshot.child("URL").getValue(String.class)).into(PostImage);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        }
+
+        public void setAll(String proId, final String category, String promoted, final Context ctx1)
+        {
+            DatabaseReference proRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference finRef;
+            final TextView namePro = (TextView) mView.findViewById(R.id.bestBuyTitle);
+            final TextView disPrice = (TextView) mView.findViewById(R.id.bestBuyDiscountedCardPrice);
+            final TextView oriPrice = (TextView) mView.findViewById(R.id.bestBuyCardPrice);
+            final TextView sellerNam = (TextView) mView.findViewById(R.id.bestBuySeller);
+            final TextView disCount = (TextView) mView.findViewById(R.id.bestDiscountDisplay);
+
+
+            DatabaseReference ShopRef = FirebaseDatabase.getInstance().getReference().child("sellers").child("sellers-list").child(proId.split("_")[1]).child("Shop-name");
+            ShopRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    sellerNam.setText(dataSnapshot.getValue(String.class));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            if(promoted.equalsIgnoreCase("No"))
+            {
+                finRef = proRef.child("categories").child(category).child(proId);
+                finRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists())
+                        {
+                            namePro.setText(dataSnapshot.child("NAME").getValue(String.class));
+                            disPrice.setVisibility(View.INVISIBLE);
+                            String pri = dataSnapshot.child("PRICE").getValue(String.class);
+                            oriPrice.setText(pri.split(",")[0]);
+                            disCount.setVisibility(View.INVISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+            else
+            {
+                finRef = proRef.child("promoted_products").child(category).child(proId);
+                finRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists())
+                        {
+                            namePro.setText(dataSnapshot.child("NAME").getValue(String.class));
+                            disCount.setText(dataSnapshot.child("DISCOUNT").getValue(String.class));
+                            String pri = dataSnapshot.child("PRICE").getValue(String.class);
+                            String priHere = pri.split(",")[0];
+                            oriPrice.setText(priHere);
+                            Double disPriCalc = (Double.parseDouble(priHere.trim())*Double.parseDouble(dataSnapshot.child("DISCOUNT").getValue(String.class).split("%")[0].trim()))/100;
+                            disPrice.setText(String.valueOf(disPriCalc));
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+
+        }
+
+    }
+
+    private void plotGraph(String budget, String exp, String savings) {
+        double expPer = ((Double.parseDouble(budget) - Double.parseDouble(exp))/Double.parseDouble(budget)) * 100;
+        double savPer = ((Double.parseDouble(budget) - Double.parseDouble(savings))/Double.parseDouble(budget))*100;
+        DataPoint[] dataPoints = new DataPoint[2];
+        dataPoints[0] = new DataPoint(1, (int)Math.round(expPer));
+        dataPoints[1] = new DataPoint(2, (int)Math.round(savPer));
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(dataPoints);
+        mGraph.addSeries(series);
+        series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
+            @Override
+            public int get(DataPoint data) {
+                return Color.rgb((int) data.getX()*255/10, (int) Math.abs(data.getY()*255/10), 100);
+            }
+        });
+        series.setSpacing(5);
+
     }
 
     private void updateBudget(){
@@ -427,7 +747,7 @@ public class SoftFragment extends Fragment {
         budgetReference.child(current_user_id).child("Expenditure").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                expenditure.setText(dataSnapshot.getValue(String.class));
+                expenditure.setText(("Rs "+dataSnapshot.getValue(String.class)));
             }
 
             @Override
@@ -439,7 +759,7 @@ public class SoftFragment extends Fragment {
         budgetReference.child(current_user_id).child("Savings").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                savings.setText(dataSnapshot.getValue(String.class));
+                savings.setText(("Rs "+dataSnapshot.getValue(String.class)));
             }
 
             @Override
@@ -451,7 +771,7 @@ public class SoftFragment extends Fragment {
         budgetReference.child(current_user_id).child("Bookings").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                expExpenditure.setText(dataSnapshot.getValue(String.class));
+                expExpenditure.setText(("Rs "+dataSnapshot.getValue(String.class)));
             }
 
             @Override
@@ -463,7 +783,7 @@ public class SoftFragment extends Fragment {
         budgetReference.child(current_user_id).child("Booked Savings").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                expSavings.setText(dataSnapshot.getValue(String.class));
+                expSavings.setText(("Rs "+dataSnapshot.getValue(String.class)));
             }
 
             @Override

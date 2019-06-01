@@ -9,7 +9,7 @@
     tools:context=".activities.ItemDetailActivity">
 
     <include
-        android:id="@+id/main_page_toolbar"
+        android:id="@+id/main_page_toolbar2"
         layout="@layout/app_bar_layout">
     </include>
 
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/main_page_toolbar">
+            android:layout_below="@id/main_page_toolbar2">
 
             <ImageView
                 android:layout_marginLeft="13dp"

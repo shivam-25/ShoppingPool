@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -58,6 +59,7 @@ public class BookingActivity extends AppCompatActivity {
     private String saveCurrentDate, saveCurrentTime, postRandomName;
     private String promotedIndication;
     private String fullname;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,9 @@ public class BookingActivity extends AppCompatActivity {
         RelativeLayout loanFullerton = findViewById(R.id.loanButton);
         SharedPreferences sp = getSharedPreferences("LOGGED_USER", Context.MODE_PRIVATE);
         String user = sp.getString("current_user", null);
+        mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar3);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Book this Product");
 
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String prefName = sp.getString("prefName", null);

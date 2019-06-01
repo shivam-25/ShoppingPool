@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bestBuyCard"
+    android:layout_width="180dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dp"
+    card_view:contentPadding="2dp">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <ImageView
+            android:id="@+id/bestBuyImage"
+            android:layout_width="fill_parent"
+            android:layout_height="165dp"
+            android:layout_margin="7dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/photo" />
+
+        <TextView
+            android:id="@+id/bestDiscountDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/itemCardImage"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/red_circle"
+            android:padding="5dp"
+            android:text="100%"
+            android:textColor="@color/White"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/bestBuyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@id/bestBuyImage"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+
+            android:lines="1"
+            android:maxLines="2"
+            android:text="Title"
+
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/bestBuyDiscountedCardPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/txtTitle"
+            android:layout_alignStart="@+id/txtTitle"
+            android:layout_below="@+id/bestBuyTitle"
+            android:layout_marginLeft="15dp"
+            android:text="discounted Price"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/bestBuyCardPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bestBuyDiscountedCardPrice"
+            android:layout_marginLeft="15dp"
+            android:text="on Price"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/bestBuySeller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bestBuyCardPrice"
+
+            android:layout_marginLeft="15dp"
+            android:text="Seller" />
+
+        <Button
+            android:id="@+id/bestBuyBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bestBuySeller"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Book"
+            android:textColor="@color/White"
+            android:textSize="15dp" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

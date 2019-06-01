@@ -189,10 +189,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
+
+
         if(actionBarDrawerToggle.onOptionsItemSelected(item))
         {
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -205,18 +208,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_profile:
-                break;
-
-            case R.id.nav_home:
-                break;
-
-            case R.id.nav_friends:
-                break;
-
-            case R.id.nav_find_friends:
-                break;
-
-            case R.id.nav_messages:
+                SendUserToSetupActivity();
                 break;
 
             case R.id.nav_settings:
@@ -401,6 +393,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void SendUserToPostActivity() {
         Intent addNewPostIntent = new Intent(MainActivity.this, PostActivity.class);
+        startActivity(addNewPostIntent);
+    }
+
+    private void SendUserToSetupActivity() {
+        Intent addNewPostIntent = new Intent(MainActivity.this, SetupActivity.class);
         startActivity(addNewPostIntent);
     }
 }
